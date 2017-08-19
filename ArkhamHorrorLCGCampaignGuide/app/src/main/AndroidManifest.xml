@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.whitdan.arkhamhorrorlcgcampaignguide">
+
+    <application
+        android:name=".Z_Data.GlobalVariables"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name=".A_Menus.MainMenuActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".A_Menus.ChooseCampaignActivity">
+        </activity>
+        <activity android:name=".B_CampaignSetup.CampaignIntroductionActivity">
+        </activity>
+        <activity
+            android:name=".B_CampaignSetup.CampaignInvestigatorsActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".B_CampaignSetup.ChaosBagSetupActivity">
+        </activity>
+        <activity android:name=".C_Scenario.ScenarioIntroductionActivity">
+        </activity>
+        <activity android:name=".A_Menus.LoadCampaignActivity">
+        </activity>
+        <activity android:name=".C_Scenario.ScenarioSetupActivity">
+        </activity>
+        <activity
+            android:name=".C_Scenario.ScenarioMainActivity"
+            android:parentActivityName=".A_Menus.MainMenuActivity">
+        </activity>
+        <activity android:name=".D_Misc.CampaignLogActivity">
+        </activity>
+        <activity android:name=".D_Misc.EditTeamActivity">
+        </activity>
+        <activity android:name=".D_Misc.ChaosBagActivity">
+        </activity>
+        <activity android:name=".C_Scenario.ScenarioResolutionActivity">
+        </activity>
+        <activity
+            android:name=".C_Scenario.ScenarioInterludeActivity"
+            android:parentActivityName=".A_Menus.MainMenuActivity">
+        </activity>
+        <activity android:name=".D_Misc.CampaignFinishedActivity">
+        </activity>
+        <activity android:name=".A_Menus.StandaloneActivity">
+        </activity>
+    </application>
+
+</manifest>
