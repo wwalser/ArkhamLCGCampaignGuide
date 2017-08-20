@@ -182,6 +182,48 @@ public class LoadCampaignActivity extends AppCompatActivity {
                             currentScenarioName.setText(R.string.campaign_completed);
                             break;
                     }
+                    break;
+                case 3:
+                    currentCampaignName.setText(R.string.carcosa_campaign);
+                    switch(globalVariables.CurrentScenario){
+                        case 1:
+                            currentScenarioName.setText(R.string.carcosa_scenario_one);
+                            break;
+                        case 2:
+                            currentScenarioName.setText(R.string.carcosa_scenario_two);
+                            break;
+                        case 3:
+                            currentScenarioName.setText(R.string.carcosa_interlude_one);
+                            break;
+                        case 4:
+                            currentScenarioName.setText(R.string.carcosa_scenario_three);
+                            break;
+                        case 5:
+                            currentScenarioName.setText(R.string.carcosa_scenario_four);
+                            break;
+                        case 6:
+                            currentScenarioName.setText(R.string.carcosa_interlude_two);
+                            break;
+                        case 7:
+                            currentScenarioName.setText(R.string.carcosa_scenario_five);
+                            break;
+                        case 8:
+                            currentScenarioName.setText(R.string.carcosa_scenario_six);
+                            break;
+                        case 9:
+                            currentScenarioName.setText(R.string.carcosa_scenario_seven);
+                            break;
+                        case 10:
+                            currentScenarioName.setText(R.string.carcosa_scenario_eight);
+                            break;
+                        case 11:
+                            currentScenarioName.setText(R.string.carcosa_epilogue);
+                            break;
+                        case 12:
+                            currentScenarioName.setText(R.string.campaign_completed);
+                            break;
+                    }
+                    break;
             }
         }
     }
@@ -367,7 +409,7 @@ public class LoadCampaignActivity extends AppCompatActivity {
             investigatorCursor.close();
 
             // Set the relevant Night of the Zealot variables from the SQL database
-            if (globalVariables.CurrentCampaign == 1) {
+            if (globalVariables.CurrentCampaign == 1 || globalVariables.NightCompleted == 1) {
                 String[] nightProjection = {
                         NightEntry.COLUMN_HOUSE_STANDING,
                         NightEntry.COLUMN_GHOUL_PRIEST,
@@ -425,7 +467,7 @@ public class LoadCampaignActivity extends AppCompatActivity {
             }
 
             // Set the relevant Dunwich variables from the database
-            if (globalVariables.CurrentCampaign == 2) {
+            if (globalVariables.CurrentCampaign == 2 || globalVariables.DunwichCompleted == 1) {
                 String[] dunwichProjection = {
                         ArkhamContract.DunwichEntry.COLUMN_FIRST_SCENARIO,
                         ArkhamContract.DunwichEntry.COLUMN_INVESTIGATORS_UNCONSCIOUS,

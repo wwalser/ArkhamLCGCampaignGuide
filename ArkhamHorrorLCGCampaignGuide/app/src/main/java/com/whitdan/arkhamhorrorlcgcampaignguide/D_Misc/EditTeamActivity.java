@@ -963,7 +963,7 @@ public class EditTeamActivity extends AppCompatActivity {
     private class investigatorLinkListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            DialogFragment investigatorInfoFragment = new investigatorInfoFragment();
+            DialogFragment investigatorInfoFragment = new InvestigatorInfoDialog();
             // Pass the investigator number to the dialog in a bundle
             Bundle bundle = new Bundle();
             int investigator = -1;
@@ -988,7 +988,7 @@ public class EditTeamActivity extends AppCompatActivity {
     }
 
     // Dialog fragment for entering information about each investigator
-    public static class investigatorInfoFragment extends DialogFragment {
+    public static class InvestigatorInfoDialog extends DialogFragment {
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -1031,11 +1031,11 @@ public class EditTeamActivity extends AppCompatActivity {
                         if (currentInvestigator.PlayerName != null) {
                             playerName.setText(currentInvestigator.PlayerName);
                         }
-                        if (currentInvestigator.Decklist != null) {
-                            playerDeck.setText(currentInvestigator.Decklist);
-                        }
                         if (currentInvestigator.DeckName != null) {
-                            playerLink.setText(currentInvestigator.DeckName);
+                            playerDeck.setText(currentInvestigator.DeckName);
+                        }
+                        if (currentInvestigator.Decklist != null) {
+                            playerLink.setText(currentInvestigator.Decklist);
                         }
                     } else {
                         playerName.setText(globalVariables.PlayerNames[investigator]);
@@ -1049,11 +1049,11 @@ public class EditTeamActivity extends AppCompatActivity {
                         if (currentInvestigator.PlayerName != null) {
                             playerName.setText(currentInvestigator.PlayerName);
                         }
-                        if (currentInvestigator.Decklist != null) {
-                            playerDeck.setText(currentInvestigator.Decklist);
-                        }
                         if (currentInvestigator.DeckName != null) {
-                            playerLink.setText(currentInvestigator.DeckName);
+                            playerDeck.setText(currentInvestigator.DeckName);
+                        }
+                        if (currentInvestigator.Decklist != null) {
+                            playerLink.setText(currentInvestigator.Decklist);
                         }
                     } else {
                         playerName.setText(globalVariables.PlayerNames[investigator]);
@@ -1067,11 +1067,11 @@ public class EditTeamActivity extends AppCompatActivity {
                         if (currentInvestigator.PlayerName != null) {
                             playerName.setText(currentInvestigator.PlayerName);
                         }
-                        if (currentInvestigator.Decklist != null) {
-                            playerDeck.setText(currentInvestigator.Decklist);
-                        }
                         if (currentInvestigator.DeckName != null) {
-                            playerLink.setText(currentInvestigator.DeckName);
+                            playerDeck.setText(currentInvestigator.DeckName);
+                        }
+                        if (currentInvestigator.Decklist != null) {
+                            playerLink.setText(currentInvestigator.Decklist);
                         }
                     } else {
                         playerName.setText(globalVariables.PlayerNames[investigator]);
@@ -1085,11 +1085,11 @@ public class EditTeamActivity extends AppCompatActivity {
                         if (currentInvestigator.PlayerName != null) {
                             playerName.setText(currentInvestigator.PlayerName);
                         }
-                        if (currentInvestigator.Decklist != null) {
-                            playerDeck.setText(currentInvestigator.Decklist);
-                        }
                         if (currentInvestigator.DeckName != null) {
-                            playerLink.setText(currentInvestigator.DeckName);
+                            playerDeck.setText(currentInvestigator.DeckName);
+                        }
+                        if (currentInvestigator.Decklist != null) {
+                            playerLink.setText(currentInvestigator.Decklist);
                         }
                     } else {
                         playerName.setText(globalVariables.PlayerNames[investigator]);

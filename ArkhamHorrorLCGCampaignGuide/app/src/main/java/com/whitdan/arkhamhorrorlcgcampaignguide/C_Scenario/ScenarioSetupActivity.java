@@ -201,7 +201,7 @@ public class ScenarioSetupActivity extends AppCompatActivity {
                         locations.setText(R.string.extracurricular_locations);
                         locationPlacement.setVisibility(VISIBLE);
                         locationPlacement.setImageResource(R.drawable.extracurricular_locations);
-                        additional.setText(R.string.no_changes);
+                        additional.setText(R.string.no_additional);
                         break;
                     case 2:
                         title.setText(R.string.dunwich_scenario_two);
@@ -388,7 +388,7 @@ public class ScenarioSetupActivity extends AppCompatActivity {
                         setsImage.setImageResource(R.drawable.lost_sets);
                         setAside.setText(R.string.lost_set_aside);
                         locations.setText(R.string.lost_locations);
-                        additional.setText(R.string.no_changes);
+                        additional.setText(R.string.no_additional);
                         break;
                     case 11:
                         title.setText(R.string.dunwich_epilogue);
@@ -410,7 +410,7 @@ public class ScenarioSetupActivity extends AppCompatActivity {
                     setAsideTwo.setVisibility(VISIBLE);
                     setAsideTwo.setText(R.string.rougarou_set_aside_two);
                     locations.setText(R.string.rougarou_locations);
-                    additional.setText(R.string.no_changes);
+                    additional.setText(R.string.no_additional);
                     break;
                 case 102:
                     title.setText(R.string.carnevale_scenario);

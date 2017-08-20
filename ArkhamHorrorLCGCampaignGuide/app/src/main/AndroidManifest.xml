@@ -48,7 +48,8 @@
             android:name=".C_Scenario.ScenarioInterludeActivity"
             android:parentActivityName=".A_Menus.MainMenuActivity">
         </activity>
-        <activity android:name=".D_Misc.CampaignFinishedActivity">
+        <activity android:name=".D_Misc.CampaignFinishedActivity"
+                  android:parentActivityName=".A_Menus.MainMenuActivity">
         </activity>
         <activity android:name=".A_Menus.StandaloneActivity">
         </activity>
