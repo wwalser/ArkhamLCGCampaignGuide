@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.whitdan.arkhamhorrorlcgcampaignguide.A_Menus.MainMenuActivity;
@@ -47,14 +46,13 @@ public class ScenarioInterludeActivity extends AppCompatActivity {
         introductionFour.setTypeface(arnoproitalic);
         introductionFive.setTypeface(arnoproitalic);
         introductionSix.setTypeface(arnoproitalic);
-        RadioGroup introductionOptions = (RadioGroup) findViewById(R.id.introduction_options);
         RadioButton introductionOptionOne = (RadioButton) findViewById(R.id.introduction_option_one);
         RadioButton introductionOptionTwo = (RadioButton) findViewById(R.id.introduction_option_two);
         Typeface arnopro = Typeface.createFromAsset(getAssets(), "fonts/arnopro.otf");
         introductionOptionOne.setTypeface(arnopro);
         introductionOptionTwo.setTypeface(arnopro);
 
-        // Set text
+        // Set text and apply any resolutions
         switch (globalVariables.CurrentCampaign) {
             case 2:
                 switch (globalVariables.CurrentScenario) {
@@ -63,6 +61,9 @@ public class ScenarioInterludeActivity extends AppCompatActivity {
                         if (globalVariables.InvestigatorsUnconscious == 1) {
                             introduction.setText(R.string.armitage_interlude_one);
                             globalVariables.HenryArmitage = 0;
+                            for (int i = 0; i < globalVariables.Investigators.size(); i++) {
+                                globalVariables.Investigators.get(i).AvailableXP += 2;
+                            }
                         } else {
                             introduction.setText(R.string.armitage_interlude_two);
                             globalVariables.HenryArmitage = 1;

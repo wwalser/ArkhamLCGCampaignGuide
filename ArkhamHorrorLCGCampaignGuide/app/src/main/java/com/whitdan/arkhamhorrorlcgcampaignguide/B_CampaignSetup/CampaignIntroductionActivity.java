@@ -1,8 +1,11 @@
 package com.whitdan.arkhamhorrorlcgcampaignguide.B_CampaignSetup;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -21,6 +24,8 @@ import com.whitdan.arkhamhorrorlcgcampaignguide.A_Menus.MainMenuActivity;
 import com.whitdan.arkhamhorrorlcgcampaignguide.C_Scenario.ScenarioMainActivity;
 import com.whitdan.arkhamhorrorlcgcampaignguide.C_Scenario.ScenarioResolutionActivity;
 import com.whitdan.arkhamhorrorlcgcampaignguide.R;
+import com.whitdan.arkhamhorrorlcgcampaignguide.Z_Data.ArkhamContract;
+import com.whitdan.arkhamhorrorlcgcampaignguide.Z_Data.ArkhamDbHelper;
 import com.whitdan.arkhamhorrorlcgcampaignguide.Z_Data.GlobalVariables;
 
 import static android.view.View.GONE;
@@ -94,6 +99,7 @@ public class CampaignIntroductionActivity extends AppCompatActivity {
                         DialogFragment startCampaign = new StartCampaignDialog();
                         startCampaign.show(getFragmentManager(), "campaign");
                     } else {
+                        SetupCampaign(CampaignIntroductionActivity.this);
                         Intent intent = new Intent(CampaignIntroductionActivity.this, ScenarioMainActivity.class);
                         startActivity(intent);
                     }
@@ -191,7 +197,6 @@ public class CampaignIntroductionActivity extends AppCompatActivity {
                     }
                     // Save and start the campaign
                     else {
-
                         // Set current scenario to first scenario
                         if (globalVariables.CurrentCampaign == 2) {
                             globalVariables.CurrentScenario = globalVariables.FirstScenario;
@@ -199,6 +204,7 @@ public class CampaignIntroductionActivity extends AppCompatActivity {
                             globalVariables.CurrentScenario = 1;
                         }
 
+                        SetupCampaign(getActivity());
                         ScenarioResolutionActivity.saveCampaign(getActivity(), globalVariables);
 
                         // Go to scenario setup
@@ -221,5 +227,36 @@ public class CampaignIntroductionActivity extends AppCompatActivity {
             return builder.create();
         }
 
+    }
+
+    private static void SetupCampaign(Activity activity){
+        // Get a writable database
+        ArkhamDbHelper dbHelper = new ArkhamDbHelper(activity);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        // Create campaign specific table
+        int currentCampaign = globalVariables.CurrentCampaign;
+        long newCampaignId = globalVariables.CampaignID;
+        switch (currentCampaign) {
+            // Night of the Zealot
+            case 1:
+                ContentValues nightValues = new ContentValues();
+                nightValues.put(ArkhamContract.NightEntry.PARENT_ID, newCampaignId);
+                db.insert(ArkhamContract.NightEntry.TABLE_NAME, null, nightValues);
+                break;
+            // The Dunwich Legacy
+            case 2:
+                ContentValues dunwichValues = new ContentValues();
+                dunwichValues.put(ArkhamContract.DunwichEntry.PARENT_ID, newCampaignId);
+                dunwichValues.put(ArkhamContract.DunwichEntry.COLUMN_FIRST_SCENARIO,
+                        globalVariables.FirstScenario);
+                db.insert(ArkhamContract.DunwichEntry.TABLE_NAME, null, dunwichValues);
+                break;
+            // Path to Carcosa
+            case 3:
+                ContentValues carcosaValues = new ContentValues();
+                carcosaValues.put(ArkhamContract.CarcosaEntry.PARENT_ID, newCampaignId);
+                db.insert(ArkhamContract.CarcosaEntry.TABLE_NAME, null, carcosaValues);
+                break;
+        }
     }
 }

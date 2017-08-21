@@ -143,7 +143,7 @@ public class CampaignLogActivity extends AppCompatActivity {
             nightHeading.setVisibility(VISIBLE);
             nightLog.setVisibility(VISIBLE);
             StringBuilder nightBuilder = new StringBuilder();
-            if (scenario == 1) {
+            if (scenario == 1 && globalVariables.NightCompleted != 1) {
                 nightBuilder.append(getString(R.string.nothing));
             }
             // First scenario log
@@ -258,7 +258,7 @@ public class CampaignLogActivity extends AppCompatActivity {
             dunwichLog.setVisibility(VISIBLE);
             StringBuilder dunwichBuilder = new StringBuilder();
             if ((scenario == 1 && globalVariables.FirstScenario == 1) ||
-                    (scenario == 2 && globalVariables.FirstScenario == 2)) {
+                    (scenario == 2 && globalVariables.FirstScenario == 2) && (globalVariables.DunwichCompleted != 1)) {
                 dunwichBuilder.append(getString(R.string.nothing));
             }
             if (globalVariables.InvestigatorsUnconscious == 1) {

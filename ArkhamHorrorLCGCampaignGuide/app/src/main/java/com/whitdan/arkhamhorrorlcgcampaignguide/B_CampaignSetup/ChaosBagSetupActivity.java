@@ -74,6 +74,11 @@ public class ChaosBagSetupActivity extends AppCompatActivity {
             if (view instanceof RadioButton) {
                 ((RadioButton) view).setTypeface(arnopro);
                 view.setOnClickListener(new difficultySelectionListener());
+
+                if(i == globalVariables.CurrentDifficulty){
+                    ((RadioButton) view).setChecked(true);
+                    setupBag();
+                }
             }
         }
 

@@ -369,7 +369,6 @@ public class ScenarioSetupActivity extends AppCompatActivity {
                             }
                         }
                         if (globalVariables.BroodsEscaped > 0) {
-                            doomAdditionalBuilder.append("\n");
                             doomAdditionalBuilder.append(getString(R.string.add_token));
                             doomAdditionalBuilder.append(" ");
                             doomAdditionalBuilder.append(Integer.toString(globalVariables.BroodsEscaped));

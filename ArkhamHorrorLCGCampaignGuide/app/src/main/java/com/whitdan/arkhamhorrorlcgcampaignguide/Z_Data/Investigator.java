@@ -1,9 +1,5 @@
 package com.whitdan.arkhamhorrorlcgcampaignguide.Z_Data;
 
-/**
- * Created by danie on 17/04/2017.
- */
-
 public class Investigator {
     // Integer values for each investigator
     public static final int ROLAND_BANKS = 1;

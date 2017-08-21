@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -79,7 +80,7 @@ public class CampaignFinishedActivity extends AppCompatActivity {
         // Setup investigator views
         LinearLayout investigatorList = (LinearLayout) findViewById(R.id.investigators_list);
         InvestigatorListAdapter investigatorsAdapter = new InvestigatorListAdapter(this, globalVariables
-                .Investigators, globalVariables);
+                .Investigators);
         final int adapterCount = investigatorsAdapter.getCount();
 
         for (int i = 0; i < adapterCount; i++) {
@@ -127,7 +128,7 @@ public class CampaignFinishedActivity extends AppCompatActivity {
 
         private Context context;
 
-        InvestigatorListAdapter(Context con, ArrayList<Investigator> investigators, GlobalVariables global) {
+        InvestigatorListAdapter(Context con, ArrayList<Investigator> investigators) {
             super(con, 0, investigators);
             context = con;
         }
@@ -144,112 +145,114 @@ public class CampaignFinishedActivity extends AppCompatActivity {
                         R.layout.c_item_investigator, parent, false);
             }
 
-            // Typefaces
-            Typeface teutonic = Typeface.createFromAsset(context.getAssets(), "fonts/teutonic.ttf");
-            Typeface arnopro = Typeface.createFromAsset(context.getAssets(), "fonts/arnopro.otf");
-            Typeface arnoprobold = Typeface.createFromAsset(context.getAssets(), "fonts/arnoprobold.otf");
-            Typeface wolgast = Typeface.createFromAsset(context.getAssets(), "fonts/wolgast.otf");
-            Typeface wolgastbold = Typeface.createFromAsset(context.getAssets(), "fonts/wolgastbold.otf");
+            if (currentInvestigator != null) {
+                // Typefaces
+                Typeface teutonic = Typeface.createFromAsset(context.getAssets(), "fonts/teutonic.ttf");
+                Typeface arnoprobold = Typeface.createFromAsset(context.getAssets(), "fonts/arnoprobold.otf");
+                Typeface wolgast = Typeface.createFromAsset(context.getAssets(), "fonts/wolgast.otf");
+                Typeface wolgastbold = Typeface.createFromAsset(context.getAssets(), "fonts/wolgastbold.otf");
 
-            // Set investigator name
-            TextView investigatorNameView = (TextView) listItemView.findViewById(R.id.investigator_name);
-            String[] investigatorNames = getContext().getResources().getStringArray(R.array.investigators);
-            investigatorNameView.setText(investigatorNames[currentInvestigator.Name] + " ");
-            investigatorNameView.setTypeface(teutonic);
-            String playerName = " ";
-            if (currentInvestigator.PlayerName != null) {
-                playerName = currentInvestigator.PlayerName + " ";
-            }
-            TextView playerNameView = (TextView) listItemView.findViewById(R.id.player_name);
-            playerNameView.setText(playerName);
-            playerNameView.setTypeface(wolgast);
+                // Set investigator name
+                TextView investigatorNameView = (TextView) listItemView.findViewById(R.id.investigator_name);
+                String[] investigatorNames = getContext().getResources().getStringArray(R.array.investigators);
+                String name = investigatorNames[currentInvestigator.Name] + " ";
+                investigatorNameView.setText(name);
+                investigatorNameView.setTypeface(teutonic);
+                String playerName = " ";
+                if (currentInvestigator.PlayerName != null) {
+                    playerName = currentInvestigator.PlayerName + " ";
+                }
+                TextView playerNameView = (TextView) listItemView.findViewById(R.id.player_name);
+                playerNameView.setText(playerName);
+                playerNameView.setTypeface(wolgast);
 
-            // Set decklist
-            String deckName = currentInvestigator.DeckName;
-            TextView decklistView = (TextView) listItemView.findViewById(R.id.decklist);
-            decklistView.setTypeface(arnoprobold);
-            final String decklist = currentInvestigator.Decklist;
-            if (deckName == null && decklist == null) {
-                decklistView.setVisibility(GONE);
-            } else if (deckName == null) {
-                if (decklist.length() == 0) {
+                // Set decklist
+                String deckName = currentInvestigator.DeckName;
+                TextView decklistView = (TextView) listItemView.findViewById(R.id.decklist);
+                decklistView.setTypeface(arnoprobold);
+                final String decklist = currentInvestigator.Decklist;
+                if (deckName == null && decklist == null) {
+                    decklistView.setVisibility(GONE);
+                } else if (deckName == null) {
+                    if (decklist.length() == 0) {
+                        decklistView.setVisibility(GONE);
+                    }
+                } else if (decklist == null) {
+                    if (deckName.length() == 0) {
+                        decklistView.setVisibility(GONE);
+                    }
+                } else if (decklist.length() == 0 && deckName.length() == 0) {
                     decklistView.setVisibility(GONE);
                 }
-            } else if (decklist == null) {
-                if (deckName.length() == 0) {
-                    decklistView.setVisibility(GONE);
+                if (deckName != null) {
+                    decklistView.setText(deckName);
+                    decklistView.setPaintFlags(decklistView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
                 }
-            } else if (decklist.length() == 0 && deckName.length() == 0) {
-                decklistView.setVisibility(GONE);
-            }
-            if (deckName != null) {
-                decklistView.setText(deckName);
-                decklistView.setPaintFlags(decklistView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-            }
-            if (decklist != null) {
-                if (decklist.length() > 0) {
-                    decklistView.setTextColor(Color.BLUE);
-                    decklistView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            String deck;
-                            if (!decklist.startsWith("http://") && !decklist.startsWith("https://")) {
-                                deck = "http://" + decklist;
-                            } else {
-                                deck = decklist;
+                if (decklist != null) {
+                    if (decklist.length() > 0) {
+                        decklistView.setTextColor(Color.BLUE);
+                        decklistView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                String deck;
+                                if (!decklist.startsWith("http://") && !decklist.startsWith("https://")) {
+                                    deck = "http://" + decklist;
+                                } else {
+                                    deck = decklist;
+                                }
+                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(deck));
+                                context.startActivity(browserIntent);
                             }
-                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(deck));
-                            context.startActivity(browserIntent);
-                        }
-                    });
+                        });
+                    }
                 }
-            }
 
-            // Set typefaces
-            TextView killed = (TextView) listItemView.findViewById(R.id.killed);
-            killed.setTypeface(arnoprobold);
-            TextView phys = (TextView) listItemView.findViewById(R.id.physical_trauma);
-            phys.setTypeface(arnoprobold);
-            TextView mental = (TextView) listItemView.findViewById(R.id.mental_trauma);
-            mental.setTypeface(arnoprobold);
-            TextView availXP = (TextView) listItemView.findViewById(R.id.available_xp);
-            availXP.setTypeface(arnoprobold);
+                // Set typefaces
+                TextView killed = (TextView) listItemView.findViewById(R.id.killed);
+                killed.setTypeface(arnoprobold);
+                TextView phys = (TextView) listItemView.findViewById(R.id.physical_trauma);
+                phys.setTypeface(arnoprobold);
+                TextView mental = (TextView) listItemView.findViewById(R.id.mental_trauma);
+                mental.setTypeface(arnoprobold);
+                TextView availXP = (TextView) listItemView.findViewById(R.id.available_xp);
+                availXP.setTypeface(arnoprobold);
 
-            // Hide stats and show investigator killed if investigator is dead
-            LinearLayout stats = (LinearLayout) listItemView.findViewById(R.id.investigator_stats);
-            if (currentInvestigator.Status == 2) {
-                stats.setVisibility(GONE);
-                killed.setVisibility(VISIBLE);
-                if (currentInvestigator.Damage >= currentInvestigator.Health) {
-                    killed.setText(R.string.killed);
-                } else if (currentInvestigator.Horror >= currentInvestigator.Sanity) {
-                    killed.setText(R.string.insane);
-                } else {
-                    killed.setText(R.string.killed);
+                // Hide stats and show investigator killed if investigator is dead
+                LinearLayout stats = (LinearLayout) listItemView.findViewById(R.id.investigator_stats);
+                if (currentInvestigator.Status == 2) {
+                    stats.setVisibility(GONE);
+                    killed.setVisibility(VISIBLE);
+                    if (currentInvestigator.Damage >= currentInvestigator.Health) {
+                        killed.setText(R.string.killed);
+                    } else if (currentInvestigator.Horror >= currentInvestigator.Sanity) {
+                        killed.setText(R.string.insane);
+                    } else {
+                        killed.setText(R.string.killed);
+                    }
                 }
+
+                // Set other values
+                TextView physicalTrauma = (TextView) listItemView.findViewById(R.id.physical_trauma_amount);
+                physicalTrauma.setText(String.valueOf(currentInvestigator.Damage));
+                physicalTrauma.setTypeface(wolgastbold);
+                TextView mentalTrauma = (TextView) listItemView.findViewById(R.id.mental_trauma_amount);
+                mentalTrauma.setText(String.valueOf(currentInvestigator.Horror));
+                mentalTrauma.setTypeface(wolgastbold);
+                TextView availableXP = (TextView) listItemView.findViewById(R.id.available_xp_amount);
+                availableXP.setText(String.valueOf(currentInvestigator.AvailableXP));
+                availableXP.setTypeface(wolgastbold);
+
+                // Hide spent XP views
+                TextView spentXP = (TextView) listItemView.findViewById(R.id.xp_spent);
+                spentXP.setVisibility(GONE);
+                final TextView spentXPAmount = (TextView) listItemView.findViewById(R.id.xp_spent_amount);
+                spentXPAmount.setVisibility(GONE);
+                ImageView xpDecrement = (ImageView) listItemView.findViewById(R.id.xp_spent_decrement);
+                xpDecrement.setVisibility(GONE);
+                ImageView xpIncrement = (ImageView) listItemView.findViewById(R.id.xp_spent_increment);
+                xpIncrement.setVisibility(GONE);
+
             }
-
-            // Set other values
-            TextView physicalTrauma = (TextView) listItemView.findViewById(R.id.physical_trauma_amount);
-            physicalTrauma.setText(String.valueOf(currentInvestigator.Damage));
-            physicalTrauma.setTypeface(wolgastbold);
-            TextView mentalTrauma = (TextView) listItemView.findViewById(R.id.mental_trauma_amount);
-            mentalTrauma.setText(String.valueOf(currentInvestigator.Horror));
-            mentalTrauma.setTypeface(wolgastbold);
-            TextView availableXP = (TextView) listItemView.findViewById(R.id.available_xp_amount);
-            availableXP.setText(String.valueOf(currentInvestigator.AvailableXP));
-            availableXP.setTypeface(wolgastbold);
-
-            // Hide spent XP views
-            TextView spentXP = (TextView) listItemView.findViewById(R.id.xp_spent);
-            spentXP.setVisibility(GONE);
-            final TextView spentXPAmount = (TextView) listItemView.findViewById(R.id.xp_spent_amount);
-            spentXPAmount.setVisibility(GONE);
-            TextView xpDecrement = (TextView) listItemView.findViewById(R.id.xp_spent_decrement);
-            xpDecrement.setVisibility(GONE);
-            TextView xpIncrement = (TextView) listItemView.findViewById(R.id.xp_spent_increment);
-            xpIncrement.setVisibility(GONE);
-
             return listItemView;
         }
     }
@@ -260,7 +263,7 @@ public class CampaignFinishedActivity extends AppCompatActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             // Get the layout inflater and inflate the view
             LayoutInflater inflater = getActivity().getLayoutInflater();
-            View v = inflater.inflate(R.layout.d_dialog_finish_campaign, null);
+            View v = View.inflate(getActivity(), R.layout.d_dialog_finish_campaign, null);
 
             final RadioButton delete = (RadioButton) v.findViewById(R.id.finish_delete_campaign);
             final RadioButton save = (RadioButton) v.findViewById(R.id.finish_save_campaign);
@@ -275,10 +278,10 @@ public class CampaignFinishedActivity extends AppCompatActivity {
             carcosa.setTypeface(arnopro);
 
             // Hide completed campaigns
-            if(globalVariables.NightCompleted == 1){
+            if (globalVariables.NightCompleted == 1) {
                 night.setVisibility(GONE);
             }
-            if(globalVariables.DunwichCompleted == 1){
+            if (globalVariables.DunwichCompleted == 1) {
                 dunwich.setVisibility(GONE);
             }
 

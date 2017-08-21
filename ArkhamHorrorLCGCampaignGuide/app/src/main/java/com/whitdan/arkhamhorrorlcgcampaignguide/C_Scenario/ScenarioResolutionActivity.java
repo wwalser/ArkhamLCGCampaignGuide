@@ -14,7 +14,6 @@ import android.support.annotation.IdRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableStringBuilder;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -61,13 +60,13 @@ public class ScenarioResolutionActivity extends AppCompatActivity {
         setContentView(R.layout.c_activity_scenario_resolution);
         globalVariables = (GlobalVariables) this.getApplication();
         globalVariables.ScenarioResolution = -1;
+        globalVariables.VictoryDisplay = 0;
 
         // Set fonts
         Typeface teutonic = Typeface.createFromAsset(getAssets(), "fonts/teutonic.ttf");
         Typeface arnopro = Typeface.createFromAsset(getAssets(), "fonts/arnopro.otf");
         Typeface arnoprobold = Typeface.createFromAsset(getAssets(), "fonts/arnoprobold.otf");
         Typeface arnoproitalic = Typeface.createFromAsset(getAssets(), "fonts/arnoproitalic.otf");
-        Typeface wolgast = Typeface.createFromAsset(getAssets(), "fonts/wolgast.otf");
         Typeface wolgastbold = Typeface.createFromAsset(getAssets(), "fonts/wolgastbold.otf");
         TextView title = (TextView) findViewById(R.id.current_scenario_name);
         title.setTypeface(teutonic);
@@ -80,12 +79,10 @@ public class ScenarioResolutionActivity extends AppCompatActivity {
         LinearLayout additionalCounterLayout = (LinearLayout) findViewById(R.id.additional_counter_layout);
         final TextView additionalCounter = (TextView) findViewById(R.id.additional_counter);
         additionalCounter.setTypeface(arnoprobold);
-        TextView additionalDecrement = (TextView) findViewById(R.id.additional_decrement);
-        additionalDecrement.setTypeface(wolgast);
+        ImageView additionalDecrement = (ImageView) findViewById(R.id.additional_decrement);
         final TextView additionalAmount = (TextView) findViewById(R.id.additional_amount);
         additionalAmount.setTypeface(wolgastbold);
-        TextView additionalIncrement = (TextView) findViewById(R.id.additional_increment);
-        additionalIncrement.setTypeface(wolgast);
+        ImageView additionalIncrement = (ImageView) findViewById(R.id.additional_increment);
         TextView resolution = (TextView) findViewById(R.id.resolution_text);
         resolution.setTypeface(arnoproitalic);
         final TextView resolutionAdditional = (TextView) findViewById(R.id.resolution_text_additional);
@@ -94,12 +91,10 @@ public class ScenarioResolutionActivity extends AppCompatActivity {
         // Victory display
         TextView victoryDisplay = (TextView) findViewById(R.id.victory_display);
         victoryDisplay.setTypeface(arnoprobold);
-        TextView victoryDecrement = (TextView) findViewById(R.id.victory_decrement);
-        victoryDecrement.setTypeface(wolgast);
+        ImageView victoryDecrement = (ImageView) findViewById(R.id.victory_decrement);
         final TextView victoryAmount = (TextView) findViewById(R.id.victory_amount);
         victoryAmount.setTypeface(wolgastbold);
-        TextView victoryIncrement = (TextView) findViewById(R.id.victory_increment);
-        victoryIncrement.setTypeface(wolgast);
+        ImageView victoryIncrement = (ImageView) findViewById(R.id.victory_increment);
         victoryAmount.setText(String.valueOf(globalVariables.VictoryDisplay));
         victoryDecrement.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1448,8 +1443,7 @@ public class ScenarioResolutionActivity extends AppCompatActivity {
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             // Get the layout inflater and inflate the view
-            LayoutInflater inflater = getActivity().getLayoutInflater();
-            View v = inflater.inflate(R.layout.c_dialog_finish_scenario, null);
+            View v = View.inflate(getActivity(), R.layout.c_dialog_finish_scenario, null);
 
             Typeface teutonic = Typeface.createFromAsset(getActivity().getAssets(), "fonts/teutonic.ttf");
             Typeface arnopro = Typeface.createFromAsset(getActivity().getAssets(), "fonts/arnopro.otf");
@@ -2071,6 +2065,11 @@ public class ScenarioResolutionActivity extends AppCompatActivity {
                             }
                         }
                         globalVariables.Necronomicon = globalVariables.ScenarioResolution;
+                        if(additionalCheckbox.isChecked()){
+                            globalVariables.AdamLynchHaroldWalsted = 1;
+                        } else {
+                            globalVariables.AdamLynchHaroldWalsted = 0;
+                        }
                         for (int i = 0; i < globalVariables.Investigators.size(); i++) {
                             globalVariables.Investigators.get(i).AvailableXP += globalVariables.VictoryDisplay;
                         }
@@ -2122,7 +2121,7 @@ public class ScenarioResolutionActivity extends AppCompatActivity {
                             case 1:
                                 globalVariables.InvestigatorsDelayed = 0;
                                 for (int i = 0; i < globalVariables.Investigators.size(); i++) {
-                                    if (globalVariables.Investigators.get(i).Status != 0) {
+                                    if (globalVariables.Investigators.get(i).TempStatus != 0) {
                                         globalVariables.Investigators.get(i).AvailableXP += (globalVariables
                                                 .VictoryDisplay + 1);
                                     } else {
@@ -2136,7 +2135,7 @@ public class ScenarioResolutionActivity extends AppCompatActivity {
                                 for (int i = 0; i < globalVariables.Investigators.size(); i++) {
                                     globalVariables.Investigators.get(i).AvailableXP += (globalVariables
                                             .VictoryDisplay + 1);
-                                    if (globalVariables.Investigators.get(i).Status == 0) {
+                                    if (globalVariables.Investigators.get(i).TempStatus == 0) {
                                         globalVariables.Investigators.get(i).Horror += 1;
                                     }
                                 }
@@ -2567,8 +2566,7 @@ public class ScenarioResolutionActivity extends AppCompatActivity {
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             // Get the layout inflater and inflate the view
-            LayoutInflater inflater = getActivity().getLayoutInflater();
-            View v = inflater.inflate(R.layout.c_dialog_player_cards, null);
+            View v = View.inflate(getActivity(), R.layout.c_dialog_player_cards, null);
 
             Typeface arnopro = Typeface.createFromAsset(getActivity().getAssets(), "fonts/arnopro.otf");
             final CheckBox solution = (CheckBox) v.findViewById(R.id.strange_solution);
@@ -2626,8 +2624,7 @@ public class ScenarioResolutionActivity extends AppCompatActivity {
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             // Get the layout inflater and inflate the view
-            LayoutInflater inflater = getActivity().getLayoutInflater();
-            View v = inflater.inflate(R.layout.c_dialog_weaknesses, null);
+            View v = View.inflate(getActivity(), R.layout.c_dialog_weaknesses, null);
 
             Typeface arnopro = Typeface.createFromAsset(getActivity().getAssets(), "fonts/arnopro.otf");
             final CheckBox investigatorOne = (CheckBox) v.findViewById(R.id.investigator_one_weakness);

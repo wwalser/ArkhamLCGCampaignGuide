@@ -93,6 +93,7 @@ public class ChooseCampaignActivity extends AppCompatActivity {
     // variables from carrying through to a new campaign
     private void resetVariables(){
         globalVariables.InvestigatorsInUse = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0,0};
+        globalVariables.CurrentDifficulty = 1;
         globalVariables.NightCompleted = 0;
         globalVariables.DunwichCompleted = 0;
         globalVariables.TownsfolkAction = 0;

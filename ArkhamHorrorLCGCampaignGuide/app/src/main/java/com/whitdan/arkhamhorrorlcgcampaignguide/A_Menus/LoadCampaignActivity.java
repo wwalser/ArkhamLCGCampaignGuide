@@ -633,8 +633,7 @@ public class LoadCampaignActivity extends AppCompatActivity {
 
             // Get the layout inflater and inflate the view
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            LayoutInflater inflater = getActivity().getLayoutInflater();
-            View v = inflater.inflate(R.layout.a_dialog_delete_campaign, null);
+            View v = View.inflate(getActivity(), R.layout.a_dialog_delete_campaign, null);
 
             // Get the relevant views and set the right fonts
             Typeface arnopro = Typeface.createFromAsset(getActivity().getAssets(), "fonts/arnopro.otf");

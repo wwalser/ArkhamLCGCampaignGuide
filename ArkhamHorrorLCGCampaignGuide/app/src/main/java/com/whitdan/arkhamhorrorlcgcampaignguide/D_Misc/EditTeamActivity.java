@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
@@ -70,14 +71,9 @@ public class EditTeamActivity extends AppCompatActivity {
         globalVariables.DeckNames = new String[4];
         globalVariables.DeckLists = new String[4];
 
-        int first = -1;
-        int second = -1;
-        int third = -1;
-
         // Set fonts
         Typeface teutonic = Typeface.createFromAsset(getAssets(), "fonts/teutonic.ttf");
         Typeface arnopro = Typeface.createFromAsset(getAssets(), "fonts/arnopro.otf");
-        Typeface wolgast = Typeface.createFromAsset(getAssets(), "fonts/wolgast.otf");
         TextView saved = (TextView) findViewById(R.id.saved_investigators);
         TextView select = (TextView) findViewById(R.id.select_investigators);
         TextView current = (TextView) findViewById(R.id.current_team);
@@ -166,7 +162,7 @@ public class EditTeamActivity extends AppCompatActivity {
                         getResources().getDimensionPixelSize(R.dimen.checkbox_padding), 0);
                 investigator.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen
                         .arnopro_textsize));
-                investigator.setTextColor(getResources().getColor(R.color.colorBlack));
+                investigator.setTextColor(ContextCompat.getColor(this, R.color.colorBlack));
                 String investigatorName;
                 // Set the investigator name (if there's a player name add it in brackets to the end)
                 if (globalVariables.Investigators.get(i).PlayerName != null && globalVariables.Investigators.get(i)
@@ -192,7 +188,7 @@ public class EditTeamActivity extends AppCompatActivity {
             investigator.setPadding(0, getResources().getDimensionPixelSize(R.dimen.checkbox_padding),
                     getResources().getDimensionPixelSize(R.dimen.checkbox_padding), 0);
             investigator.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.arnopro_textsize));
-            investigator.setTextColor(getResources().getColor(R.color.colorBlack));
+            investigator.setTextColor(ContextCompat.getColor(this, R.color.colorBlack));
             String investigatorName;
             // Set the investigator name (if there's a player name add it in brackets to the end)
             if (globalVariables.SavedInvestigators.get(i).PlayerName != null && globalVariables.SavedInvestigators
@@ -245,13 +241,6 @@ public class EditTeamActivity extends AppCompatActivity {
         boolean carcosaOwned = settings.getBoolean(carcosaOwnedString, true);
 
         // Investigators counts how many investigators are still unused (to determine if the players have lost)
-        int investigators = 5;
-        if (dunwichOwned) {
-            investigators += 5;
-        }
-        if (carcosaOwned) {
-            investigators += 6;
-        }
         int core = 0;
         int dunwich = 0;
         int carcosa = 0;
@@ -262,7 +251,6 @@ public class EditTeamActivity extends AppCompatActivity {
             roland.setVisibility(VISIBLE);
             roland.setOnCheckedChangeListener(new InvestigatorsCheckedChangeListener());
         } else {
-            investigators--;
             core++;
         }
         if (globalVariables.InvestigatorsInUse[Investigator.SKIDS_OTOOLE] == 0) {
@@ -270,7 +258,6 @@ public class EditTeamActivity extends AppCompatActivity {
             skids.setVisibility(VISIBLE);
             skids.setOnCheckedChangeListener(new InvestigatorsCheckedChangeListener());
         } else {
-            investigators--;
             core++;
         }
         if (globalVariables.InvestigatorsInUse[Investigator.AGNES_BAKER] == 0) {
@@ -278,7 +265,6 @@ public class EditTeamActivity extends AppCompatActivity {
             agnes.setVisibility(VISIBLE);
             agnes.setOnCheckedChangeListener(new InvestigatorsCheckedChangeListener());
         } else {
-            investigators--;
             core++;
         }
         if (globalVariables.InvestigatorsInUse[Investigator.DAISY_WALKER] == 0) {
@@ -286,7 +272,6 @@ public class EditTeamActivity extends AppCompatActivity {
             daisy.setVisibility(VISIBLE);
             daisy.setOnCheckedChangeListener(new InvestigatorsCheckedChangeListener());
         } else {
-            investigators--;
             core++;
         }
         if (globalVariables.InvestigatorsInUse[Investigator.WENDY_ADAMS] == 0) {
@@ -294,7 +279,6 @@ public class EditTeamActivity extends AppCompatActivity {
             wendy.setVisibility(VISIBLE);
             wendy.setOnCheckedChangeListener(new InvestigatorsCheckedChangeListener());
         } else {
-            investigators--;
             core++;
         }
         // Hide the LinearLayout if all core investigators are dead
@@ -309,7 +293,6 @@ public class EditTeamActivity extends AppCompatActivity {
                 zoey.setVisibility(VISIBLE);
                 zoey.setOnCheckedChangeListener(new InvestigatorsCheckedChangeListener());
             } else {
-                investigators--;
                 dunwich++;
             }
             if (globalVariables.InvestigatorsInUse[Investigator.REX_MURPHY] == 0) {
@@ -317,7 +300,6 @@ public class EditTeamActivity extends AppCompatActivity {
                 rex.setVisibility(VISIBLE);
                 rex.setOnCheckedChangeListener(new InvestigatorsCheckedChangeListener());
             } else {
-                investigators--;
                 dunwich++;
             }
             if (globalVariables.InvestigatorsInUse[Investigator.JENNY_BARNES] == 0) {
@@ -325,7 +307,6 @@ public class EditTeamActivity extends AppCompatActivity {
                 jenny.setVisibility(VISIBLE);
                 jenny.setOnCheckedChangeListener(new InvestigatorsCheckedChangeListener());
             } else {
-                investigators--;
                 dunwich++;
             }
             if (globalVariables.InvestigatorsInUse[Investigator.JIM_CULVER] == 0) {
@@ -333,7 +314,6 @@ public class EditTeamActivity extends AppCompatActivity {
                 jim.setVisibility(VISIBLE);
                 jim.setOnCheckedChangeListener(new InvestigatorsCheckedChangeListener());
             } else {
-                investigators--;
                 dunwich++;
             }
             if (globalVariables.InvestigatorsInUse[Investigator.ASHCAN_PETE] == 0) {
@@ -341,7 +321,6 @@ public class EditTeamActivity extends AppCompatActivity {
                 pete.setVisibility(VISIBLE);
                 pete.setOnCheckedChangeListener(new InvestigatorsCheckedChangeListener());
             } else {
-                investigators--;
                 dunwich++;
             }
         }
@@ -357,7 +336,6 @@ public class EditTeamActivity extends AppCompatActivity {
                 mark.setVisibility(VISIBLE);
                 mark.setOnCheckedChangeListener(new InvestigatorsCheckedChangeListener());
             } else {
-                investigators--;
                 carcosa++;
             }
             if (globalVariables.InvestigatorsInUse[Investigator.MINH_THI_PHAN] == 0) {
@@ -365,7 +343,6 @@ public class EditTeamActivity extends AppCompatActivity {
                 minh.setVisibility(VISIBLE);
                 minh.setOnCheckedChangeListener(new InvestigatorsCheckedChangeListener());
             } else {
-                investigators--;
                 carcosa++;
             }
             if (globalVariables.InvestigatorsInUse[Investigator.SEFINA_ROUSSEAU] == 0) {
@@ -373,7 +350,6 @@ public class EditTeamActivity extends AppCompatActivity {
                 sefina.setVisibility(VISIBLE);
                 sefina.setOnCheckedChangeListener(new InvestigatorsCheckedChangeListener());
             } else {
-                investigators--;
                 carcosa++;
             }
             if (globalVariables.InvestigatorsInUse[Investigator.AKACHI_ONYELE] == 0) {
@@ -381,7 +357,6 @@ public class EditTeamActivity extends AppCompatActivity {
                 akachi.setVisibility(VISIBLE);
                 akachi.setOnCheckedChangeListener(new InvestigatorsCheckedChangeListener());
             } else {
-                investigators--;
                 carcosa++;
             }
             if (globalVariables.InvestigatorsInUse[Investigator.WILLIAM_YORRICK] == 0) {
@@ -389,7 +364,6 @@ public class EditTeamActivity extends AppCompatActivity {
                 william.setVisibility(VISIBLE);
                 william.setOnCheckedChangeListener(new InvestigatorsCheckedChangeListener());
             } else {
-                investigators--;
                 carcosa++;
             }
             if (globalVariables.InvestigatorsInUse[Investigator.LOLA_HAYES] == 0) {
@@ -397,7 +371,6 @@ public class EditTeamActivity extends AppCompatActivity {
                 lola.setVisibility(VISIBLE);
                 lola.setOnCheckedChangeListener(new InvestigatorsCheckedChangeListener());
             } else {
-                investigators--;
                 carcosa++;
             }
         }

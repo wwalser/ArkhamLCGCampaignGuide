@@ -155,16 +155,12 @@
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/arnopro_textsize"/>
 
-            <TextView
+            <ImageView
                 android:id="@+id/xp_spent_decrement"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
                 android:layout_weight="1"
-                android:gravity="end"
-                android:includeFontPadding="false"
-                android:text="-"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/arnopro_textsize"/>
+                android:src="@drawable/button_decrement"/>
 
             <TextView
                 android:id="@+id/xp_spent_amount"
@@ -176,16 +172,12 @@
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/arnopro_textsize"/>
 
-            <TextView
+            <ImageView
                 android:id="@+id/xp_spent_increment"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
                 android:layout_weight="1"
-                android:gravity="start"
-                android:includeFontPadding="false"
-                android:text="+"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/arnopro_textsize"/>
+                android:src="@drawable/button_increment"/>
         </LinearLayout>
     </LinearLayout>
 

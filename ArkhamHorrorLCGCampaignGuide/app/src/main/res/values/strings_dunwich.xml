@@ -481,7 +481,7 @@
         \n\t\t<b>Easy:</b> -3\n
         \n\t\t<b>Standard:</b> -5\n
         \n\t\t<b>Hard:</b> -6\n
-        \n\t\t<b>Expert:</b> -7\n\n</string>
+        \n\t\t<b>Expert:</b> -7\n</string>
     <string name="doom_additional_act_one">Use Act 2—Ascending the Hill (v. I).\n\n</string>
     <string name="doom_additional_act_two">Use Act 2—Ascending the Hill (v. II).\n\n</string>
     <string name="doom_additional_act_three">Use Act 2—Ascending the Hill (v. III).\n\n</string>
